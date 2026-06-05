@@ -1,0 +1,881 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>SSLC FunLearn</title>  
+  <style>  
+    :root {  
+      --bg: #0f172a;  
+      --bg2: #111827;  
+      --card: rgba(17, 24, 39, 0.92);  
+      --card2: #0b1220;  
+      --text: #e5e7eb;  
+      --muted: #94a3b8;  
+      --line: rgba(148, 163, 184, 0.18);  
+      --pri: #22c55e;  
+      --sec: #38bdf8;  
+      --acc: #f59e0b;  
+      --danger: #ef4444;  
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.28);  
+      --radius: 22px;  
+    }  * { box-sizing: border-box; }  
+html { scroll-behavior: smooth; }  
+body {  
+  margin: 0;  
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;  
+  background:  
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 26%),  
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 28%),  
+    linear-gradient(180deg, #081120 0%, #111827 100%);  
+  color: var(--text);  
+  min-height: 100vh;  
+}  
+
+a { color: inherit; }  
+button, input, select { font: inherit; }  
+
+.container {  
+  max-width: 1200px;  
+  margin: 0 auto;  
+  padding: 0 20px;  
+}  
+
+header {  
+  padding: 28px 0 18px;  
+}  
+
+.brand {  
+  display: inline-flex;  
+  align-items: center;  
+  gap: 10px;  
+  padding: 8px 12px;  
+  border: 1px solid var(--line);  
+  border-radius: 999px;  
+  background: rgba(15, 23, 42, 0.55);  
+  color: #cceeff;  
+  font-size: 13px;  
+  letter-spacing: 0.06em;  
+  text-transform: uppercase;  
+}  
+
+.hero {  
+  display: grid;  
+  grid-template-columns: 1.15fr 0.85fr;  
+  gap: 16px;  
+  align-items: stretch;  
+  padding: 18px 0 28px;  
+}  
+
+.panel {  
+  background: var(--card);  
+  border: 1px solid var(--line);  
+  border-radius: var(--radius);  
+  box-shadow: var(--shadow);  
+  padding: 22px;  
+}  
+
+h1 {  
+  margin: 14px 0 10px;  
+  font-size: clamp(34px, 5vw, 58px);  
+  line-height: 1.03;  
+}  
+
+.lead {  
+  color: var(--muted);  
+  font-size: 16px;  
+  line-height: 1.7;  
+  max-width: 780px;  
+}  
+
+.chips {  
+  display: flex;  
+  flex-wrap: wrap;  
+  gap: 10px;  
+  margin-top: 18px;  
+}  
+
+.chip {  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  border-radius: 999px;  
+  padding: 9px 13px;  
+  font-size: 14px;  
+  color: #dbeafe;  
+}  
+
+.cta-row {  
+  display: flex;  
+  flex-wrap: wrap;  
+  gap: 10px;  
+  margin-top: 20px;  
+}  
+
+.btn {  
+  border: 0;  
+  border-radius: 14px;  
+  padding: 12px 16px;  
+  cursor: pointer;  
+  text-decoration: none;  
+  font-weight: 700;  
+  display: inline-flex;  
+  align-items: center;  
+  justify-content: center;  
+  gap: 8px;  
+}  
+
+.btn.primary {  
+  color: white;  
+  background: linear-gradient(90deg, var(--pri), #16a34a);  
+}  
+
+.btn.secondary {  
+  color: white;  
+  background: linear-gradient(90deg, var(--sec), #2563eb);  
+}  
+
+.btn.dark {  
+  color: var(--text);  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+}  
+
+.stats {  
+  display: grid;  
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 12px;  
+  margin-top: 18px;  
+}  
+
+.stat {  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  border-radius: 18px;  
+  padding: 14px;  
+}  
+
+.stat b {  
+  display: block;  
+  font-size: 26px;  
+  margin-bottom: 4px;  
+}  
+
+.stat span {  
+  color: var(--muted);  
+  font-size: 13px;  
+}  
+
+.section-title {  
+  display: flex;  
+  align-items: center;  
+  justify-content: space-between;  
+  gap: 12px;  
+  margin: 8px 0 14px;  
+}  
+
+.section-title h2 {  
+  margin: 0;  
+  font-size: 24px;  
+}  
+
+.section-title p {  
+  margin: 0;  
+  color: var(--muted);  
+}  
+
+.dashboard {  
+  display: grid;  
+  grid-template-columns: 1fr 1fr;  
+  gap: 16px;  
+  margin-bottom: 18px;  
+}  
+
+.progress-box {  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  border-radius: 18px;  
+  padding: 16px;  
+}  
+
+.progress-top {  
+  display: flex;  
+  align-items: center;  
+  justify-content: space-between;  
+  gap: 12px;  
+  margin-bottom: 10px;  
+}  
+
+.progress-bar {  
+  width: 100%;  
+  height: 11px;  
+  background: rgba(148, 163, 184, 0.16);  
+  border-radius: 999px;  
+  overflow: hidden;  
+}  
+
+.progress-fill {  
+  height: 100%;  
+  width: 0%;  
+  background: linear-gradient(90deg, var(--pri), var(--sec));  
+  border-radius: 999px;  
+  transition: width 0.3s ease;  
+}  
+
+.mini-list {  
+  display: grid;  
+  gap: 10px;  
+  margin-top: 12px;  
+}  
+
+.mini-item {  
+  display: flex;  
+  justify-content: space-between;  
+  gap: 14px;  
+  align-items: center;  
+  background: rgba(15, 23, 42, 0.5);  
+  border: 1px solid var(--line);  
+  border-radius: 14px;  
+  padding: 10px 12px;  
+}  
+
+.mini-item small {  
+  color: var(--muted);  
+  display: block;  
+  margin-top: 3px;  
+}  
+
+.subject-tabs {  
+  display: flex;  
+  flex-wrap: wrap;  
+  gap: 10px;  
+  margin: 4px 0 14px;  
+}  
+
+.tab {  
+  border: 1px solid var(--line);  
+  background: var(--card2);  
+  color: var(--text);  
+  border-radius: 999px;  
+  padding: 10px 14px;  
+  cursor: pointer;  
+  transition: 0.2s ease;  
+}  
+
+.tab.active {  
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.22), rgba(34, 197, 94, 0.22));  
+  border-color: rgba(56, 189, 248, 0.45);  
+}  
+
+.content-grid {  
+  display: grid;  
+  grid-template-columns: 0.9fr 1.1fr;  
+  gap: 16px;  
+  align-items: start;  
+  margin-bottom: 20px;  
+}  
+
+.chapter-list {  
+  display: grid;  
+  gap: 10px;  
+}  
+
+.chapter-btn {  
+  width: 100%;  
+  text-align: left;  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  color: var(--text);  
+  padding: 14px;  
+  border-radius: 16px;  
+  cursor: pointer;  
+  transition: 0.2s ease;  
+}  
+
+.chapter-btn:hover {  
+  transform: translateY(-1px);  
+  border-color: rgba(56, 189, 248, 0.35);  
+}  
+
+.chapter-btn.active {  
+  background: rgba(56, 189, 248, 0.12);  
+  border-color: rgba(56, 189, 248, 0.35);  
+}  
+
+.chapter-btn b {  
+  display: block;  
+  margin-bottom: 4px;  
+}  
+
+.chapter-btn span {  
+  color: var(--muted);  
+  font-size: 13px;  
+}  
+
+.lesson-card {  
+  background: var(--card);  
+  border: 1px solid var(--line);  
+  border-radius: var(--radius);  
+  box-shadow: var(--shadow);  
+  padding: 20px;  
+}  
+
+.lesson-meta {  
+  display: flex;  
+  flex-wrap: wrap;  
+  gap: 8px;  
+  margin-bottom: 12px;  
+}  
+
+.pill {  
+  padding: 7px 10px;  
+  border-radius: 999px;  
+  font-size: 13px;  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  color: #dbeafe;  
+}  
+
+.lesson-card h3 {  
+  margin: 0 0 10px;  
+  font-size: 26px;  
+}  
+
+.lesson-card p {  
+  color: var(--muted);  
+  line-height: 1.7;  
+}  
+
+.story-box {  
+  margin-top: 16px;  
+  padding: 16px;  
+  border-radius: 18px;  
+  border: 1px solid rgba(245, 158, 11, 0.26);  
+  background: rgba(245, 158, 11, 0.08);  
+}  
+
+.activity-grid {  
+  display: grid;  
+  grid-template-columns: repeat(2, 1fr);  
+  gap: 12px;  
+  margin-top: 16px;  
+}  
+
+.activity {  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  border-radius: 18px;  
+  padding: 14px;  
+}  
+
+.activity h4 {  
+  margin: 0 0 8px;  
+}  
+
+.activity p {  
+  margin: 0 0 10px;  
+  color: var(--muted);  
+  font-size: 14px;  
+  line-height: 1.6;  
+}  
+
+.quiz {  
+  margin-top: 16px;  
+  background: var(--card2);  
+  border: 1px solid var(--line);  
+  border-radius: 18px;  
+  padding: 16px;  
+}  
+
+.question {  
+  font-size: 18px;  
+  margin-bottom: 12px;  
+}  
+
+.options {  
+  display: grid;  
+  gap: 10px;  
+}  
+
+.option {  
+  width: 100%;  
+  text-align: left;  
+  background: rgba(15, 23, 42, 0.5);  
+  border: 1px solid var(--line);  
+  color: var(--text);  
+  padding: 12px 14px;  
+  border-radius: 14px;  
+  cursor: pointer;  
+}  
+
+.option.correct {  
+  border-color: rgba(34, 197, 94, 0.6);  
+  background: rgba(34, 197, 94, 0.14);  
+}  
+
+.option.wrong {  
+  border-color: rgba(239, 68, 68, 0.6);  
+  background: rgba(239, 68, 68, 0.12);  
+}  
+
+.feedback {  
+  margin-top: 12px;  
+  color: #dbeafe;  
+  min-height: 24px;  
+}  
+
+.footer-note {  
+  color: var(--muted);  
+  font-size: 13px;  
+  padding: 8px 0 26px;  
+}  
+
+.hidden { display: none; }  
+
+@media (max-width: 980px) {  
+  .hero, .dashboard, .content-grid, .activity-grid {  
+    grid-template-columns: 1fr;  
+  }  
+  .stats {  
+    grid-template-columns: 1fr;  
+  }  
+}
+
+  </style>  
+</head>  
+<body>  
+  <div class="container">  
+    <header>  
+      <div class="brand">Kerala SSLC • FunLearn</div>  
+      <div class="hero">  
+        <section class="panel">  
+          <h1>Study by playing, not by boring reading.</h1>  
+          <p class="lead">  
+            This website helps a Kerala SSLC 10th student learn chapter by chapter through story mode, quizzes, activities, flashcards, and progress rewards.  
+            Social Science feels like a video, Maths becomes step-by-step practice, and Science becomes visual and interactive.  
+          </p>  
+          <div class="chips">  
+            <div class="chip">Story mode</div>  
+            <div class="chip">Chapter wise</div>  
+            <div class="chip">Activities</div>  
+            <div class="chip">Quiz mode</div>  
+            <div class="chip">Progress badges</div>  
+            <div class="chip">Mobile friendly</div>  
+          </div>  
+          <div class="cta-row">  
+            <a class="btn primary" href="#learn">Start Learning</a>  
+            <a class="btn secondary" href="#subjects">View Subjects</a>  
+            <button class="btn dark" id="resetBtn">Reset Progress</button>  
+          </div>  
+          <div class="stats">  
+            <div class="stat"><b id="chaptersDone">0</b><span>Chapters done</span></div>  
+            <div class="stat"><b id="xpCount">0</b><span>XP earned</span></div>  
+            <div class="stat"><b id="streakCount">1</b><span>Day streak</span></div>  
+          </div>  
+        </section>  <aside class="panel">  
+      <div class="section-title">  
+        <div>  
+          <h2>Today’s mission</h2>  
+          <p>Finish one chapter and one quiz.</p>  
+        </div>  
+      </div>  
+      <div class="progress-box">  
+        <div class="progress-top">  
+          <strong>Weekly progress</strong>  
+          <span id="progressText">0%</span>  
+        </div>  
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>  
+        <div class="mini-list">  
+          <div class="mini-item">  
+            <div>  
+              <strong>Watch story intro</strong>  
+              <small>2-3 minute learning scene</small>  
+            </div>  
+            <span>1</span>  
+          </div>  
+          <div class="mini-item">  
+            <div>  
+              <strong>Play activity</strong>  
+              <small>Match, drag, or choose</small>  
+            </div>  
+            <span>2</span>  
+          </div>  
+          <div class="mini-item">  
+            <div>  
+              <strong>Answer quiz</strong>  
+              <small>3 questions to unlock</small>  
+            </div>  
+            <span>3</span>  
+          </div>  
+        </div>  
+      </div>  
+    </aside>  
+  </div>  
+</header>  
+
+<section id="subjects" class="panel">  
+  <div class="section-title">  
+    <div>  
+      <h2>Subjects</h2>  
+      <p>Choose a subject and a chapter.</p>  
+    </div>  
+  </div>  
+  <div class="subject-tabs" id="tabs"></div>  
+</section>  
+
+<section id="learn" class="content-grid">  
+  <div class="panel">  
+    <div class="section-title">  
+      <div>  
+        <h2>Chapters</h2>  
+        <p id="chapterSubtitle">Select a subject to view chapters.</p>  
+      </div>  
+    </div>  
+    <div class="chapter-list" id="chapterList"></div>  
+  </div>  
+
+  <div class="lesson-card">  
+    <div class="lesson-meta" id="lessonMeta"></div>  
+    <h3 id="lessonTitle">Welcome</h3>  
+    <p id="lessonDesc">  
+      Pick a subject and chapter from the left side. The lesson area will show a story-style explanation, activities, and a quiz.  
+    </p>  
+
+    <div class="story-box">  
+      <strong>Story mode</strong>  
+      <p id="storyText" style="margin:8px 0 0; color:#fde68a;">  
+        This is where the chapter becomes an episode. The learner reads short parts, watches visuals, and answers questions along the way.  
+      </p>  
+    </div>  
+
+    <div class="activity-grid" id="activityGrid"></div>  
+
+    <div class="quiz">  
+      <div class="question" id="questionText">Quiz will appear here.</div>  
+      <div class="options" id="optionsBox"></div>  
+      <div class="feedback" id="feedback"></div>  
+    </div>  
+  </div>  
+</section>  
+
+<div class="footer-note">  
+  Built for chapter-wise learning, especially to make Social Science interesting for a student who gets bored with plain reading.  
+</div>
+
+  </div>    <script>  
+    const data = {  
+      socialScience: {  
+        label: "Social Science",  
+        chapters: [  
+          {  
+            title: "Humanism",  
+            type: "History",  
+            level: "Easy",  
+            desc: "Learn how human values, equality, and social awareness shape modern society.",  
+            story: "A group of students walks through time and sees why human dignity became important in society.",  
+            activities: [  
+              { name: "Timeline", text: "Put the ideas in the correct order: equality, freedom, fraternity." },  
+              { name: "Match", text: "Match the word with meaning: dignity, justice, rights." }  
+            ],  
+            quiz: {  
+              q: "Which idea is most connected to humanism?",  
+              options: ["Only wealth matters", "Respect for every person", "No rules at all", "Winning exams only"],  
+              answer: 1,  
+              explain: "Humanism focuses on respect, equality, and human dignity."  
+            }  
+          },  
+          {  
+            title: "Revolutions that Influenced the World",  
+            type: "History",  
+            level: "Story",  
+            desc: "Understand big world changes through a story-like journey.",  
+            story: "The lesson starts in old Europe, where people demand new rights and new ideas begin to spread.",  
+            activities: [  
+              { name: "Map", text: "Find the countries where major revolutions happened." },  
+              { name: "Order", text: "Arrange revolution events from first to last." }  
+            ],  
+            quiz: {  
+              q: "What usually starts a revolution?",  
+              options: ["People staying silent forever", "A demand for major change", "A new sport", "A weather event"],  
+              answer: 1,  
+              explain: "Revolutions usually begin when people demand major political or social change."  
+            }  
+          },  
+          {  
+            title: "Weather and Climate",  
+            type: "Geography",  
+            level: "Visual",  
+            desc: "Learn weather and climate using charts, examples, and quick activities.",  
+            story: "The chapter follows a weather reporter showing how temperature, rainfall, and wind affect life.",  
+            activities: [  
+              { name: "Compare", text: "Weather changes daily, climate shows long-term patterns." },  
+              { name: "Think", text: "Pick examples of rainy and dry climates." }  
+            ],  
+            quiz: {  
+              q: "Weather and climate are different because climate is...",  
+              options: ["Only one day", "Long-term average", "A type of cloud", "A storm name"],  
+              answer: 1,  
+              explain: "Climate means the average weather pattern of a place over a long time."  
+            }  
+          },  
+          {  
+            title: "Consumer Education and Protection",  
+            type: "Economics",  
+            level: "Practical",  
+            desc: "Learn how consumers stay safe in markets and online shopping.",  
+            story: "A student buys a product, finds a problem, and learns how consumer rights help.",  
+            activities: [  
+              { name: "Spot it", text: "Identify fake labels, wrong bills, and bad products." },  
+              { name: "Choose", text: "Decide what to do when a product is defective." }  
+            ],  
+            quiz: {  
+              q: "What should a consumer do when a product is defective?",  
+              options: ["Hide it", "Ignore it", "Use consumer rights", "Throw away the bill"],  
+              answer: 2,  
+              explain: "Consumers can use their rights and complaint systems when products are defective."  
+            }  
+          }  
+        ]  
+      },  
+      maths: {  
+        label: "Maths",  
+        chapters: [  
+          {  
+            title: "Arithmetic Sequences",  
+            type: "Algebra",  
+            level: "Step-by-step",  
+            desc: "Learn patterns and sequences with simple examples.",  
+            story: "A student finds a staircase pattern and discovers that numbers can also grow in patterns.",  
+            activities: [  
+              { name: "Pattern", text: "Find the common difference in the sequence 2, 5, 8, 11." },  
+              { name: "Fill", text: "Complete the missing terms." }  
+            ],  
+            quiz: {  
+              q: "What is the common difference in 3, 7, 11, 15?",  
+              options: ["2", "3", "4", "5"],  
+              answer: 2,  
+              explain: "Each term increases by 4."  
+            }  
+          },  
+          {  
+            title: "Circles",  
+            type: "Geometry",  
+            level: "Visual",  
+            desc: "Understand radius, diameter, chords, and circle properties.",  
+            story: "A bike wheel becomes the center of the lesson, showing how circles appear everywhere.",  
+            activities: [  
+              { name: "Label", text: "Mark radius, diameter, and center on a circle." },  
+              { name: "Draw", text: "Sketch a circle with a chord." }  
+            ],  
+            quiz: {  
+              q: "What is the diameter of a circle?",  
+              options: ["Half of radius", "A line through center touching both sides", "A chord not through center", "The outer curve only"],  
+              answer: 1,  
+              explain: "The diameter passes through the center and touches both sides."  
+            }  
+          }  
+        ]  
+      },  
+      science: {  
+        label: "Science",  
+        chapters: [  
+          {  
+            title: "Effects of Electric Current",  
+            type: "Physics",  
+            level: "Lab mode",  
+            desc: "Learn the basics of electric current and its effects.",  
+            story: "The lesson begins with a torch light and a wire, showing how current creates heat and light effects.",  
+            activities: [  
+              { name: "Observe", text: "List household items that use electric current." },  
+              { name: "Predict", text: "Guess what happens when current passes through a bulb." }  
+            ],  
+            quiz: {  
+              q: "One effect of electric current is...",  
+              options: ["Melting rain", "Heating a wire", "Making grass grow instantly", "Turning water into air"],  
+              answer: 1,  
+              explain: "Electric current can produce heating effect."  
+            }  
+          },  
+          {  
+            title: "Chemical Messages for Homeostasis",  
+            type: "Biology",  
+            level: "Concept",  
+            desc: "Learn how hormones help the body stay balanced.",  
+            story: "The body becomes a communication network where chemical messages keep everything in control.",  
+            activities: [  
+              { name: "Match", text: "Match hormone with function." },  
+              { name: "Recall", text: "Name situations where the body needs balance." }  
+            ],  
+            quiz: {  
+              q: "Homeostasis means...",  
+              options: ["Body balance", "Fast running", "Strong memory only", "Plant growth only"],  
+              answer: 0,  
+              explain: "Homeostasis is the maintenance of internal balance in the body."  
+            }  
+          }  
+        ]  
+      },  
+      english: {  
+        label: "English",  
+        chapters: [  
+          {  
+            title: "Reading and Vocabulary",  
+            type: "Language",  
+            level: "Easy",  
+            desc: "Build reading habits and vocabulary through mini tasks.",  
+            story: "The lesson turns into a reading quest where each paragraph reveals a clue.",  
+            activities: [  
+              { name: "Word game", text: "Find synonyms and antonyms." },  
+              { name: "Read", text: "Read a short passage and answer 3 questions." }  
+            ],  
+            quiz: {  
+              q: "A synonym is a word that...",  
+              options: ["Has opposite meaning", "Has similar meaning", "Is always long", "Is a number"],  
+              answer: 1,  
+              explain: "Synonyms have similar meanings."  
+            }  
+          }  
+        ]  
+      }  
+    };  
+  
+    const state = {  
+      subject: "socialScience",  
+      chapterIndex: 0,  
+      solved: new Set(JSON.parse(localStorage.getItem("sslc_solved") || "[]")),  
+      xp: Number(localStorage.getItem("sslc_xp") || 0)  
+    };  
+  
+    const tabs = document.getElementById("tabs");  
+    const chapterList = document.getElementById("chapterList");  
+    const lessonMeta = document.getElementById("lessonMeta");  
+    const lessonTitle = document.getElementById("lessonTitle");  
+    const lessonDesc = document.getElementById("lessonDesc");  
+    const storyText = document.getElementById("storyText");  
+    const activityGrid = document.getElementById("activityGrid");  
+    const questionText = document.getElementById("questionText");  
+    const optionsBox = document.getElementById("optionsBox");  
+    const feedback = document.getElementById("feedback");  
+    const chaptersDone = document.getElementById("chaptersDone");  
+    const xpCount = document.getElementById("xpCount");  
+    const streakCount = document.getElementById("streakCount");  
+    const progressFill = document.getElementById("progressFill");  
+    const progressText = document.getElementById("progressText");  
+    const chapterSubtitle = document.getElementById("chapterSubtitle");  
+  
+    function saveState() {  
+      localStorage.setItem("sslc_solved", JSON.stringify([...state.solved]));  
+      localStorage.setItem("sslc_xp", String(state.xp));  
+    }  
+  
+    function updateStats() {  
+      chaptersDone.textContent = state.solved.size;  
+      xpCount.textContent = state.xp;  
+      const total = Object.values(data).reduce((sum, s) => sum + s.chapters.length, 0);  
+      const pct = Math.round((state.solved.size / total) * 100);  
+      progressFill.style.width = pct + "%";  
+      progressText.textContent = pct + "%";  
+    }  
+  
+    function renderTabs() {  
+      tabs.innerHTML = "";  
+      Object.entries(data).forEach(([key, subject]) => {  
+        const btn = document.createElement("button");  
+        btn.className = "tab" + (state.subject === key ? " active" : "");  
+        btn.textContent = subject.label;  
+        btn.onclick = () => {  
+          state.subject = key;  
+          state.chapterIndex = 0;  
+          render();  
+        };  
+        tabs.appendChild(btn);  
+      });  
+    }  
+  
+    function renderChapters() {  
+      const subject = data[state.subject];  
+      chapterSubtitle.textContent = `${subject.label} chapters`;  
+      chapterList.innerHTML = "";  
+      subject.chapters.forEach((ch, idx) => {  
+        const btn = document.createElement("button");  
+        btn.className = "chapter-btn" + (state.chapterIndex === idx ? " active" : "");  
+        const solved = state.solved.has(state.subject + ":" + idx);  
+        btn.innerHTML = `<b>${ch.title} ${solved ? "✓" : ""}</b><span>${ch.type} • ${ch.level}</span>`;  
+        btn.onclick = () => {  
+          state.chapterIndex = idx;  
+          renderLesson();  
+          renderChapters();  
+        };  
+        chapterList.appendChild(btn);  
+      });  
+    }  
+  
+    function renderLesson() {  
+      const ch = data[state.subject].chapters[state.chapterIndex];  
+      lessonMeta.innerHTML = `  
+        <span class="pill">${data[state.subject].label}</span>  
+        <span class="pill">${ch.type}</span>  
+        <span class="pill">${ch.level}</span>  
+      `;  
+      lessonTitle.textContent = ch.title;  
+      lessonDesc.textContent = ch.desc;  
+      storyText.textContent = ch.story;  
+  
+      activityGrid.innerHTML = "";  
+      ch.activities.forEach(act => {  
+        const div = document.createElement("div");  
+        div.className = "activity";  
+        div.innerHTML = `<h4>${act.name}</h4><p>${act.text}</p>`;  
+        activityGrid.appendChild(div);  
+      });  
+  
+      questionText.textContent = ch.quiz.q;  
+      optionsBox.innerHTML = "";  
+      feedback.textContent = "";  
+      ch.quiz.options.forEach((opt, idx) => {  
+        const btn = document.createElement("button");  
+        btn.className = "option";  
+        btn.textContent = opt;  
+        btn.onclick = () => answerQuiz(idx, btn);  
+        optionsBox.appendChild(btn);  
+      });  
+    }  
+  
+    function answerQuiz(index, clicked) {  
+      const ch = data[state.subject].chapters[state.chapterIndex];  
+      const buttons = [...document.querySelectorAll(".option")];  
+      buttons.forEach(b => b.disabled = true);  
+      if (index === ch.quiz.answer) {  
+        clicked.classList.add("correct");  
+        feedback.textContent = "Correct! " + ch.quiz.explain;  
+        const key = state.subject + ":" + state.chapterIndex;  
+        if (!state.solved.has(key)) {  
+          state.solved.add(key);  
+          state.xp += 10;  
+          saveState();  
+          updateStats();  
+          renderChapters();  
+        }  
+      } else {  
+        clicked.classList.add("wrong");  
+        buttons[ch.quiz.answer].classList.add("correct");  
+        feedback.textContent = "Not quite. " + ch.quiz.explain;  
+      }  
+    }  
+  
+    function render() {  
+      renderTabs();  
+      renderChapters();  
+      renderLesson();  
+      updateStats();  
+    }  
+  
+    document.getElementById("resetBtn").onclick = () => {  
+      state.solved = new Set();  
+      state.xp = 0;  
+      saveState();  
+      render();  
+    };  
+  
+    render();  
+  </script>  </body>  
+</html>  Save it as
+index.html
